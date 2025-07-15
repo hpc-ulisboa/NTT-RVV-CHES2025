@@ -2,6 +2,7 @@
 llvm-EPI-development-toolchain-cross*
 __pycache__
 ntt/bin
+m5out
 
 # CMake
 CMakeLists.txt.user

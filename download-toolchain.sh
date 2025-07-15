@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOOLCHAIN_ARCHIVE=llvm-EPI-development-toolchain-cross-latest.tar.bz2
+TOOLCHAIN_ARCHIVE=llvm-EPI-release-toolchain-cross-2021-12-14-2113.tar.bz2
 URL="https://ssh.hca.bsc.es/epi/ftp/$TOOLCHAIN_ARCHIVE"
 
 wget -N "$URL"

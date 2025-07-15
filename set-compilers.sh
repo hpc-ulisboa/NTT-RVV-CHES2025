@@ -5,7 +5,7 @@ if [ "$0" = "$BASH_SOURCE" ]; then
     exit 1
 fi
 
-TOOLCHAIN="llvm-EPI-development-toolchain-cross"
+TOOLCHAIN="llvm-EPI-release-toolchain-cross"
 
 # Set CC and CXX
 export CC="$(pwd)/$TOOLCHAIN/bin/clang"
