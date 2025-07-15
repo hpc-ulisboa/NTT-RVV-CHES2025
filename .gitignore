@@ -1,5 +1,5 @@
 .vscode
-llvm-EPI-development-toolchain-cross*
+llvm-EPI-*-toolchain-cross*
 __pycache__
 ntt/bin
 m5out
