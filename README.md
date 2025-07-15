@@ -2,7 +2,7 @@
 NTT vectorization for RISC-V Vector (RVV) - CHES2025
 
 # Cloning
-It is recommended that the project is clones with the `--recurse-submodules` option, to fetch OpenFHE as well. Otherwise, it will be necessary to `init` and `update` the submodules.
+It is recommended that the project is cloned with the `--recurse-submodules` option, to fetch OpenFHE as well. Otherwise, it will be necessary to `init` and `update` the submodules.
 
 # Patching OpenFHE
 After the OpenFHE submodule has been initialized, it must be patched to include the required changes. To do so, simply run the `patch-openfhe.sh` script from this repository's root directory.
@@ -13,7 +13,7 @@ The provided code makes use of the [EPI Vector Intrinsics](https://admin.hca.bsc
 To set the environment variables `CC/CXX` with the appropriate cross-compilers, simply run `source set-compilers.sh`.
 
 ### Other compilers
-Other compiler toolchains can be obtained at (BSC's FTP server)[https://ssh.hca.bsc.es/epi/ftp/]. For compiling natively (on a RISC-V machine), look for a `llvm-EPI-development-toolchain-native` toolchain.
+Other compiler toolchains can be obtained at [BSC's FTP server](https://ssh.hca.bsc.es/epi/ftp/). For compiling natively (on a RISC-V machine), look for a `llvm-EPI-*-toolchain-native` toolchain.
 
 # Compilation
 To compile the vectorized NTT/INTT implementations, `cd` into `ntt/`, and run `make`. This will create `ntt/bin/ntt-rvv.o`, which will need to be linked with any binaries that make use of OpenFHE. It will also statically compile a simple speedup test binary, `ntt/bin/test`.
