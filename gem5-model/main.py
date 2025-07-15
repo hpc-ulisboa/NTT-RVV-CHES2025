@@ -47,8 +47,6 @@ from m5.objects import *
 from caches import L1DCache, L1ICache, L2Cache, L3Cache
 from func_units import CustomFUPool
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)) + "/..")
-
 parser = argparse.ArgumentParser(
     prog="gem5 model",
     description="Basic gem5 model with input parameters"
