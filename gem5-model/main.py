@@ -137,7 +137,6 @@ system.workload = SEWorkload.init_compatible(args.binary)
 # Create a process
 process = Process()
 process.cmd = [args.binary, *args.args]
-process.output = "stdout.txt"
 system.cpu.workload = process
 system.cpu.createThreads()
 
