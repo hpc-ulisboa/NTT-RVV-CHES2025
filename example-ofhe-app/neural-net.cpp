@@ -15,9 +15,7 @@ int neuralnetwork(uint32_t numSlots)
     parameters.SetSecretKeyDist(secretKeyDist);
 
     parameters.SetSecurityLevel(HEStd_NotSet);
-    // parameters.SetSecurityLevel(HEStd_128_classic);
-    parameters.SetRingDim(1 << 12);
-    // parameters.SetRingDim(1 << 14);
+    parameters.SetRingDim(1 << 10);
 
     parameters.SetNumLargeDigits(3);
     parameters.SetKeySwitchTechnique(HYBRID);
@@ -30,7 +28,7 @@ int neuralnetwork(uint32_t numSlots)
     parameters.SetScalingTechnique(rescaleTech);
     parameters.SetFirstModSize(firstMod);
 
-    std::vector<uint32_t> levelBudget = {3, 3};
+    std::vector<uint32_t> levelBudget = {1, 1};
     std::vector<uint32_t> bsgsDim = {0, 0};
 
     uint32_t levelsAvailableAfterBootstrap = 10;
@@ -120,7 +118,7 @@ int neuralnetwork(uint32_t numSlots)
     printf("matrices generated\n");
 
     std::vector<Ciphertext<DCRTPoly>> ctweights;
-    for (usint i = 0; i < first_layer_dim; ++i)
+    for (uint32_t i = 0; i < first_layer_dim; ++i)
     {
 
         Plaintext pweights = cryptoContext->MakeCKKSPackedPlaintext(weights_firstlayer[i], 1, depth - 1, nullptr, numSlots);
@@ -134,7 +132,7 @@ int neuralnetwork(uint32_t numSlots)
     __asm__ __volatile__("rdcycle %0" : "=r"(start_cycles));
 
     std::vector<Ciphertext<DCRTPoly>> ct_output_first_layer;
-    for (int i = 0; i < first_layer_dim; i++)
+    for (uint32_t i = 0; i < first_layer_dim; i++)
     {
         auto finalResult = cryptoContext->EvalInnerProduct(ciphertextAfter, ctweights[i], numSlots);
 
@@ -145,10 +143,10 @@ int neuralnetwork(uint32_t numSlots)
     }
 
     std::vector<Ciphertext<DCRTPoly>> ct_output_second_layer;
-    for (int i = 0; i < second_layer_dim; i++)
+    for (uint32_t i = 0; i < second_layer_dim; i++)
     {
         auto ct_output_second_layer_aux = cryptoContext->EvalMult(ct_output_first_layer[0], weights_secondlayer[i][0]);
-        for (int j = 1; j < first_layer_dim; j++)
+        for (uint32_t j = 1; j < first_layer_dim; j++)
         {
             auto aux_ct = cryptoContext->EvalMult(ct_output_first_layer[j], weights_secondlayer[i][j]);
             ct_output_second_layer_aux = cryptoContext->EvalAdd(ct_output_second_layer_aux, aux_ct);
@@ -160,10 +158,10 @@ int neuralnetwork(uint32_t numSlots)
     }
 
     std::vector<Ciphertext<DCRTPoly>> ct_output_third_layer;
-    for (int i = 0; i < third_layer_dim; i++)
+    for (uint32_t i = 0; i < third_layer_dim; i++)
     {
         auto ct_output_third_layer_aux = cryptoContext->EvalMult(ct_output_second_layer[0], weights_thirdlayer[i][0]);
-        for (int j = 1; j < second_layer_dim; j++)
+        for (uint32_t j = 1; j < second_layer_dim; j++)
         {
             auto aux_ct = cryptoContext->EvalMult(ct_output_second_layer[j], weights_thirdlayer[i][j]);
             ct_output_third_layer_aux = cryptoContext->EvalAdd(ct_output_third_layer_aux, aux_ct);
@@ -180,7 +178,7 @@ int neuralnetwork(uint32_t numSlots)
     std::cout << "Cycles: " << end_cycles - start_cycles << std::endl;
 
     // third layer results
-    for (usint i = 0; i < ct_output_third_layer.size(); ++i)
+    for (uint32_t i = 0; i < ct_output_third_layer.size(); ++i)
     {
         lbcrypto::Plaintext result;
         cryptoContext->Decrypt(keyPair.secretKey, ct_output_third_layer[i], &result);
@@ -193,7 +191,7 @@ int neuralnetwork(uint32_t numSlots)
 
 int main()
 {
-    std::vector<uint32_t> slots = {16, 32, 64};
+    std::vector<uint32_t> slots = {1, 2, 4};
 
     for (auto s : slots)
     {
