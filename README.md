@@ -53,7 +53,7 @@ cd ../../ntt
 make
 
 # Build the example OpenFHE app
-cd ../../example-ofhe-app
+cd ../example-ofhe-app
 mkdir build
 cd build
 # Built statically for gem5 simulation
@@ -61,7 +61,7 @@ cmake -DBUILD_STATIC=ON ..
 make
 
 # Simulate with gem5 (assumes you have added the gem5 binary to your PATH)
-cd ..
+cd ../../
 gem5.opt gem5-model/main.py ntt/bin/test
 # This test will take a long time
 gem5.opt gem5-model/main.py example-ofhe-app/build/neural-net
