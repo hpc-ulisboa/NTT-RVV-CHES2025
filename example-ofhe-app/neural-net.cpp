@@ -191,13 +191,7 @@ int neuralnetwork(uint32_t numSlots)
 
 int main()
 {
-    std::vector<uint32_t> slots = {1, 2, 4};
-
-    for (auto s : slots)
-    {
-        std::cout << s << " slots" << std::endl;
-        neuralnetwork(s);
-    }
+    neuralnetwork(1);
 
     free_ntts_mem();
     return 0;
