@@ -1,3 +1,6 @@
 [submodule "openfhe-development"]
 	path = openfhe-development
 	url = git@github.com:openfheorg/openfhe-development.git
+[submodule "gem5"]
+	path = gem5
+	url = https://github.com/Alexandre425/gem5
