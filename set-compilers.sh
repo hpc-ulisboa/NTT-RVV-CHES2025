@@ -7,9 +7,12 @@ fi
 
 TOOLCHAIN="llvm-EPI-release-toolchain-cross"
 
-# Set CC and CXX
-export CC="$(pwd)/$TOOLCHAIN/bin/clang"
-export CXX="$(pwd)/$TOOLCHAIN/bin/clang++"
+# Get the directory of the script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Set CC and CXX relative to the script location
+export CC="$SCRIPT_DIR/$TOOLCHAIN/bin/clang"
+export CXX="$SCRIPT_DIR/$TOOLCHAIN/bin/clang++"
 
 echo "CC and CXX set to:"
 echo "CC: $CC"
