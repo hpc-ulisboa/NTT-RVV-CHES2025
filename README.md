@@ -34,9 +34,8 @@ git clone --recurse-submodules https://github.com/hpc-ulisboa/NTT-RVV-CHES2025
 cd NTT-RVV-CHES2025
 # Patch the OpenFHE submodule with the modifications
 ./patch-openfhe.sh
-# Download RISC-V cross-compiler toolchain and set env vars
+# Download RISC-V cross-compiler toolchain
 ./download-toolchain.sh
-source set-compilers.sh
 
 # Make a build directory in OpenFHE
 cd openfhe-development/
@@ -51,6 +50,9 @@ make install
 # Compile gem5
 cd ../../gem5
 scons build/RISCV/gem5.opt -j {threads}
+
+# Set the environment variables for RISC-V cross-compilation
+source set-compilers.sh
 
 # Build the RVV NTT code
 cd ../ntt
@@ -69,4 +71,26 @@ cd ../../
 gem5/build/RISCV/gem5.opt gem5-model/main.py ntt/bin/test
 # This test will take a long time
 gem5/build/RISCV/gem5.opt gem5-model/main.py example-ofhe-app/build/neural-net
+```
+
+# Expected output
+
+`ntt/bin/test`
+```
+p: 1024
+scalar: 78542, vector: 7268 cycles
+scalar: 77616, vector: 6477 cycles
+```
+
+`example-ofhe-app/build/neural-net`
+```
+CCKKS scheme is using ring dimension 1024
+
+bootstrap evaluated
+keys generated
+input generated
+input encrypted
+matrices generated
+weights encrypted, entering measured code
+Cycles: 7916310291
 ```
