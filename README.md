@@ -37,6 +37,13 @@ cd NTT-RVV-CHES2025
 # Download RISC-V cross-compiler toolchain
 ./download-toolchain.sh
 
+# Compile gem5
+cd ../../gem5
+scons build/RISCV/gem5.opt -j {threads}
+
+# Set the environment variables for RISC-V cross-compilation
+source set-compilers.sh
+
 # Make a build directory in OpenFHE
 cd openfhe-development/
 mkdir build
@@ -46,13 +53,6 @@ cmake -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_STATIC=ON ..
 # Compile with 8 cores, install
 make -j 8
 make install
-
-# Compile gem5
-cd ../../gem5
-scons build/RISCV/gem5.opt -j {threads}
-
-# Set the environment variables for RISC-V cross-compilation
-source set-compilers.sh
 
 # Build the RVV NTT code
 cd ../ntt
