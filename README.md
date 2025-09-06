@@ -53,8 +53,9 @@ cd NTT-RVV-CHES2025
 ./download-toolchain.sh
 
 # Compile gem5
-cd ../../gem5
+cd gem5
 scons build/RISCV/gem5.opt -j {threads}
+cd ..
 
 # Set the environment variables for RISC-V cross-compilation
 source set-compilers.sh
